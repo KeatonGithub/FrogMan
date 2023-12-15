@@ -7,9 +7,14 @@ public class PlayerTriggers : MonoBehaviour
     public WinLose winLoseScript;
     void Update()
     {
-      if(transform.position.y < -20.0f)
+      if(transform.position.y < -12.0f)
         {
             winLoseScript.LoseLevel();
+        }
+
+      if(transform.position.x > 16.5f)
+        {
+            winLoseScript.WinLevel();
         }
     }
 }
