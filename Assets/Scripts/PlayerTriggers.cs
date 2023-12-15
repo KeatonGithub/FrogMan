@@ -7,14 +7,14 @@ public class PlayerTriggers : MonoBehaviour
     public WinLose winLoseScript;
     void Update()
     {
-      if(transform.position.y < -12.0f)
+      if(transform.position.y < -12.0f)//when the player falls off trigger the lose level script
         {
-            winLoseScript.LoseLevel();
+            winLoseScript.LoseLevel();//trigger the loselevel script
         }
 
-      if(transform.position.x > 16.5f)
+      if(transform.position.x > 16.5f)//when the player hits the x coordinate at the end of the level they win
         {
-            winLoseScript.WinLevel();
+            winLoseScript.WinLevel();//trigger the winlevel script
         }
     }
 }

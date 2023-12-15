@@ -5,7 +5,7 @@ using UnityEngine;
 public class WinLose : MonoBehaviour
 {
     private bool gameEnd;
-    public void WinLevel()
+    public void WinLevel()//this script triggers a text in the console that says you win
     {
         if (!gameEnd)
         {
@@ -13,7 +13,7 @@ public class WinLose : MonoBehaviour
             Debug.Log("You Win!");
         }
     }
-    public void LoseLevel()
+    public void LoseLevel()//this script is the same for when you lose
 
     {
         if (!gameEnd)
