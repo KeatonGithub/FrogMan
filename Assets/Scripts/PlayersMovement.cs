@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class PlayersMovement : MonoBehaviour
 {
-   private Rigidbody2D rb2d;//declare the RigidBody2D as a function
-   public BoxCollider2D colliders;
+   private Rigidbody2D rb2d;//declare the RigidBody2D as a variable
+   public BoxCollider2D colliders;//declaring colliders as a variable
     //Serialized field lets us change values in unity without it having to be public
-   [SerializeField] private Animator animations; 
-   [SerializeField] private SpriteRenderer sprite;  
-   private float moveSpeed = 7f;
-   private float jumpForce = 14f;
-   private float directionOfX = 0f;
-   [SerializeField] private LayerMask groundjumping;
+   [SerializeField] private Animator animations; //uses animator function for sprites
+   [SerializeField] private SpriteRenderer sprite;//uses spriterenderer function for sprites
+   private float moveSpeed = 7f;//movespeed
+   private float jumpForce = 14f;//jumpspeed
+   private float directionOfX = 0f;//direction
+   [SerializeField] private LayerMask groundjumping;//lets us now if the player is on the ground layer
 
     // Start is called before the first frame update
    private void Start()
@@ -27,7 +27,7 @@ public class PlayersMovement : MonoBehaviour
     // Update is called once per frame
    private void Update()
     {
-        directionOfX = Input.GetAxisRaw("Horizontal");//gets the direction of x
+        directionOfX = Input.GetAxisRaw("Horizontal");//gets the input for x
         rb2d.velocity = new Vector2 (directionOfX * moveSpeed, rb2d.velocity.y); //lets us customize the velcity
 
         if (Input.GetButtonDown("Jump") && IsColliding()) //When Space bar is pressed you jump! Also checks if you are on the ground so you can jump
