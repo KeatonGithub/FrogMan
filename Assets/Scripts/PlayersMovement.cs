@@ -5,58 +5,60 @@ using UnityEngine;
 
 public class PlayersMovement : MonoBehaviour
 {
-   private Rigidbody2D rb2d;
-   public BoxCollider2D coll;
-   [SerializeField] private Animator anim; //Serialized field lets us change values in unity without it having to be public
+   private Rigidbody2D rb2d;//declare the RigidBody2D as a function
+   public BoxCollider2D colliders;
+    //Serialized field lets us change values in unity without it having to be public
+   [SerializeField] private Animator animations; 
    [SerializeField] private SpriteRenderer sprite;  
    private float moveSpeed = 7f;
    private float jumpForce = 14f;
-   private float dirX = 0f;
+   private float directionOfX = 0f;
    [SerializeField] private LayerMask groundjumping;
 
     // Start is called before the first frame update
    private void Start()
     {
-        rb2d = GetComponent<Rigidbody2D>();
-        coll = GetComponent<BoxCollider2D>();
-        anim = GetComponent<Animator>();
+        rb2d = GetComponent<Rigidbody2D>();//Get and declare the Rigidbody2D, BoxCollider, Animator, and SpriteRenderer
+        colliders = GetComponent<BoxCollider2D>();
+        animations = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();   
     }
 
     // Update is called once per frame
    private void Update()
     {
-        dirX = Input.GetAxisRaw("Horizontal");
-        rb2d.velocity = new Vector2 (dirX * moveSpeed, rb2d.velocity.y);
+        directionOfX = Input.GetAxisRaw("Horizontal");//gets the direction of x
+        rb2d.velocity = new Vector2 (directionOfX * moveSpeed, rb2d.velocity.y); //lets us customize the velcity
 
-        if (Input.GetButtonDown("Jump") && IsColliding()) //When Space bar is pressed you jump!
+        if (Input.GetButtonDown("Jump") && IsColliding()) //When Space bar is pressed you jump! Also checks if you are on the ground so you can jump
         {
-            GetComponent<Rigidbody2D>().velocity = new Vector2(0, jumpForce);
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0, jumpForce);//Causes the player to jump up with the height of the jumpForce with rigidbody physics bring it down
         }
-        UpdateAnimationState();
+
+        UpdateAnimationState();//self explanitory
     }
 
-    private void UpdateAnimationState()
+    private void UpdateAnimationState() //this lets us change the direction of the animations depending on the direction or if they ar running
     {
-        if (dirX > 0f)
+        if (directionOfX > 0f)
         {
-            anim.SetBool("running", true);
+            animations.SetBool("running", true);//running animation
             sprite.flipX = false;
         }
-        else if (dirX < 0f)
+        else if (directionOfX < 0f)
         {
-            anim.SetBool("running", true);
+            animations.SetBool("running", true);//flips the running sprite
             sprite.flipX = true;
         }
         else
         {
-            anim.SetBool("running", false);
+            animations.SetBool("running", false); //play idle animation
         }
 
     }
 
-    private bool IsColliding()
+    private bool IsColliding()//this function is here so that you cannot spam jump to fly so it checks if the player is colliding with the terrain
     {
-       return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, groundjumping);
+       return Physics2D.BoxCast(colliders.bounds.center, colliders.bounds.size, 0f, Vector2.down, .1f, groundjumping);
     }
 }
